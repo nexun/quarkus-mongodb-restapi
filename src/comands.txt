@@ -1,0 +1,3 @@
+1. RUN PROJECT-> mvn compile quarkus:dev
+2. RUN ELASTICSEARCH-> ./elasticsearch.bat
+3. RUN LOGSTASH-> logstash -f logstash-simple.conf
