@@ -30,29 +30,31 @@ public class FeatureService {
         return list;
     }
 
-    public List<Object> getPolygon(JsonArray cords){
+
+public List<Object> getPolygon (JsonArray cords) {
         List<Object> list = new ArrayList<>();
         ArrayList<List<Double>> points = new ArrayList<List<Double>>();
-
         for (int i = 0; i < cords.size(); i++){
                 JsonObject aux = cords.getJsonObject(i);
                 Double lat = new Double(aux.getString("lat"));
-                Double lon = new Double(aux.getString("long"));
-                points.add(Arrays.asList(lat,lon));
+                Double lon = new Double(aux.getString("lon"));
+                points.add(Arrays.asList(lon,lat));
         }
-
-        try (MongoCursor cursor = getCollection().find((Filters.geoWithinPolygon("geometry", points))).iterator()) {
-            while (cursor.hasNext()) {
-                Document document = (Document) cursor.next();
-                Features feature = new Features();
-                feature.setData(document);
-                list.add(feature);
-            }
+    MongoCursor cursor = getCollection().find((Filters.geoWithinPolygon("geometry", points))).iterator(); {
+        while (cursor.hasNext()) {
+            Document document = (Document) cursor.next();
+            Features feature = new Features();
+            feature.setData(document);
+            list.add(feature);
         }
+        System.out.print(list);
         return list;
     }
 
+
+}
+
     private MongoCollection getCollection(){
-        return mongoClient.getDatabase("crashes").getCollection("features");
+        return mongoClient.getDatabase("BBDD2").getCollection("accidents");
     }
 }
