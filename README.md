@@ -4,19 +4,19 @@ A simple REST API with Quarkus, Logstash and MongoDB for BBDD2 UNLP.
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ 
-#1. Clone this repository
+# 1. Clone this repository
 ```
 git clone https://github.com/nexun/quarkus-mongodb-restapi.git
 ```
-#2. Install Logstash
+# 2. Install Logstash
 https://www.elastic.co/es/downloads/logstash
 
-#3. Install Logstash Mongodb Output Plugin.
+# 3. Install Logstash Mongodb Output Plugin.
 https://www.elastic.co/guide/en/logstash/current/plugins-outputs-mongodb.html
 ```
 bin/logstash-plugin install logstash-output-mongodb
 ```
-#4. Create *pipeline.conf* in *logstash/bin* folder 
+# 4. Create *pipeline.conf* in *logstash/bin* folder 
 *Important: Set Input path and Output format, also specify your Mongo database*
 ```
 input {
@@ -50,11 +50,11 @@ output{
     }
 }
 ```
-#5. Run Logstash
+# 5. Run Logstash
 ```
 logstash -f pipeline.conf
 ```
-#6. Finally: Running the application in dev mode
+# 6. Finally: Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
 
