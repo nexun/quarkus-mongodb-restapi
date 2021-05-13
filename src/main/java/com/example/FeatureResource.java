@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 public class FeatureResource {
 
-    public static ArrayList<String> cords = new ArrayList<String>();
+    public static ArrayList<Double> cords = new ArrayList<Double>();
 
     @Inject
     FeatureService featureService;

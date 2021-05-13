@@ -33,23 +33,27 @@ public class FeatureService {
 
 public List<Object> getPolygon (JsonArray cords) {
         List<Object> list = new ArrayList<>();
+
         ArrayList<List<Double>> points = new ArrayList<List<Double>>();
-        for (int i = 0; i < cords.size(); i++){
+
+            for (int i = 0; i < cords.size(); i++){
                 JsonObject aux = cords.getJsonObject(i);
-                Double lat = new Double(aux.getString("lat"));
-                Double lon = new Double(aux.getString("lon"));
+                Double lon = Double.valueOf(aux.getDouble("long")); ;
+                Double lat = Double.valueOf(aux.getDouble("lat")); ;
                 points.add(Arrays.asList(lon,lat));
-        }
-    MongoCursor cursor = getCollection().find((Filters.geoWithinPolygon("geometry", points))).iterator(); {
-        while (cursor.hasNext()) {
-            Document document = (Document) cursor.next();
-            Features feature = new Features();
-            feature.setData(document);
-            list.add(feature);
-        }
-        System.out.print(list);
-        return list;
-    }
+            }
+            MongoCursor cursor = getCollection().find((Filters.geoWithinPolygon("geometry", points))).iterator(); {
+                while (cursor.hasNext()) {
+                    Document document = (Document) cursor.next();
+                    Features feature = new Features();
+                    feature.setData(document);
+                    list.add(feature);
+                }
+                System.out.print(list);
+
+            }
+
+    return list;
 
 
 }
