@@ -1,15 +1,15 @@
-package com.example;
+package com.bd2api;
 
 import org.bson.Document;
 
-public class Features {
+public class Accident {
 
     private Document data;
 
-    public Features() {
+    public Accident() {
     }
 
-    public Features(Document data,  String id) {
+    public Accident(Document data, String id) {
         this.data = data;
     }
 
