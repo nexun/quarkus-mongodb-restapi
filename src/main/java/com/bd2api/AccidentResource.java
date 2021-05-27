@@ -23,18 +23,22 @@ public class AccidentResource {
         return accidentService.list();
     }
 
+    @GET
+    @Path("/analyze")
+    public List<Object> analyze() {
+        return accidentService.analyze();
+    }
+
     @POST
     @Path("/polygon")
-    public List<Object> polygon(JsonArray cords){
+    public List<Object> polygon(JsonArray cords) {
         return accidentService.getPolygon(cords);
     }
 
     @POST
     @Path("/radio")
-    public List<Object> radio(JsonArray cords){
+    public List<Object> radio(JsonArray cords) {
         return accidentService.getRadio(cords);
     }
-
-
 
 }
