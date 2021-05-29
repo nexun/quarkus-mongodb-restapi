@@ -70,10 +70,9 @@ public class AccidentService {
         JsonObject aux = cords.getJsonObject(0);
         double lon = aux.getDouble("long");
         double lat = aux.getDouble("lat");
-        double distanceInRad = aux.getDouble("distanceInRad");
-
+        double distanceInKm = aux.getDouble("distanceInKm");
         for (Document document : getCollection()
-                .find(Filters.geoWithinCenterSphere("geometry", lon, lat, distanceInRad))) {
+                .find(Filters.geoWithinCenterSphere("geometry", lon, lat, distanceInKm/6378.1))) {
             Accident feature = new Accident();
             feature.setData(document);
             list.add(feature);
@@ -91,7 +90,7 @@ public class AccidentService {
         // ------------------ filter and convert data -----------------------------
         Document humidity = cursor
                 .aggregate(Arrays.asList(Aggregates.group("$Humidity(%)", Accumulators.sum("count", 1)),
-                        new Document("$sort", new Document("count", 1)), new Document("$limit", 1)))
+                        new Document("$sort", new Document("count", -1)), new Document("$limit", 1)))
                 .allowDiskUse(true).iterator().next();
         Document pressure = cursor
                 .aggregate(Arrays.asList(Aggregates.group("$Pressure(in)", Accumulators.sum("count", 1)),
@@ -109,16 +108,23 @@ public class AccidentService {
                 .aggregate(Arrays.asList(Aggregates.group("$Street", Accumulators.sum("count", 1)),
                         new Document("$sort", new Document("count", -1)), new Document("$limit", 1)))
                 .allowDiskUse(true).iterator().next();
-        // ------------------ create accidentes
-        Accident featureHumidity = new Accident("Humidity(%)", humidity.getString("_id"), humidity.getInteger("count"),
+        Document weatherCondition = cursor
+                .aggregate(Arrays.asList(Aggregates.group("$Weather_Condition", Accumulators.sum("count", 1)),
+                        new Document("$sort", new Document("count", -1)), new Document("$limit", 1)))
+                .allowDiskUse(true).iterator().next();
+        // ------------------ create statistics
+        Statistic featureHumidity = new Statistic("Humidity(%)", humidity.getString("_id"), humidity.getInteger("count"),
                 new Document());
-        Accident featurePressure = new Accident("Pressure(in)", pressure.getString("_id"), pressure.getInteger("count"),
+        Statistic featurePressure = new Statistic("Pressure(in)", pressure.getString("_id"), pressure.getInteger("count"),
                 new Document());
-        Accident featureCivilTwilight = new Accident("Civil_Twilight", civilTwilight.getString("_id"),
+        Statistic featureCivilTwilight = new Statistic("Civil_Twilight", civilTwilight.getString("_id"),
                 civilTwilight.getInteger("count"), new Document());
-        Accident featureCity = new Accident("City", city.getString("_id"), city.getInteger("count"), new Document());
-        Accident featureStreet = new Accident("Street", street.getString("_id"), street.getInteger("count"),
+        Statistic featureCity = new Statistic("City", city.getString("_id"), city.getInteger("count"), new Document());
+        Statistic featureStreet = new Statistic("Street", street.getString("_id"), street.getInteger("count"),
                 new Document());
+        Statistic featureWeatherCondition = new Statistic("Weather_Condition", weatherCondition.getString("_id"), weatherCondition.getInteger("count"),
+                new Document());
+
 
         // ------------------push accidents --------------------
         list.add(featureHumidity);
@@ -126,6 +132,7 @@ public class AccidentService {
         list.add(featureCivilTwilight);
         list.add(featureCity);
         list.add(featureStreet);
+        list.add(featureWeatherCondition);
 
         return list;
 
