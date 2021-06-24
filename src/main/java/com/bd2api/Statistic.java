@@ -5,22 +5,21 @@ import org.bson.Document;
 public class Statistic {
     private String parameter;
     private String value;
-    private Integer occurrences;
+    private Long occurrences;
 
-
-        public Statistic(String parameter, String value, Integer occurrences, Document data) {
-            this.parameter = parameter;
-            this.value = value;
-            this.occurrences = occurrences;
+    public Statistic(String parameter, String value, Long ocurrences, Document data) {
+        this.parameter = parameter;
+        this.value = value;
+        this.occurrences = ocurrences;
 
     }
 
-    public Integer getOccurrences() {
+    public Long getOccurrences() {
         return occurrences;
     }
 
-    public void setOccurrences(Integer integer) {
-        this.occurrences = integer;
+    public void setOccurrences(Long ocurrences) {
+        this.occurrences = ocurrences;
     }
 
     public String getValue() {

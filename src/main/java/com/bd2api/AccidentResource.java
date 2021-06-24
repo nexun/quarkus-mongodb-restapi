@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import io.vertx.core.json.JsonArray;
-
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -19,14 +19,16 @@ public class AccidentResource {
     AccidentService accidentService;
 
     @GET
-    public List<Accident> list() {
-        return accidentService.list();
+    @Path("/{start}-{end}")
+    public List<Accident> list(@PathParam Long start, @PathParam Long end) {
+        return accidentService.list(start, end);
     }
 
     @GET
-    @Path("/analyze")
-    public List<Object> analyze() {
-        return accidentService.analyze();
+    @Path("/analyze/{atribute}/{start}-{end}")
+    public List<Object> analyze(@PathParam String atribute, @PathParam Long start, @PathParam Long end) {
+
+        return accidentService.analyze(atribute, start, end);
     }
 
     @POST
