@@ -65,7 +65,7 @@ You can run your application in dev mode that enables live coding using:
 ./mvnw compile quarkus:dev
 ```
 # 7. Api Endpoints
-You have 3 endpoints
+You have 4 endpoints
 
 1)List all accidents
 ```shell script
