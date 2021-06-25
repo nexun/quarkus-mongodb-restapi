@@ -69,8 +69,7 @@ You have 3 endpoints
 
 1)List all accidents
 ```shell script
-/accidents/start-end
-
+/accidents/{start}-{end}
 /accidents/1-100
 ```
 In this path you should specify GET method, the starting and the end value, the returning values are the accidents contained in the interval.
@@ -106,7 +105,7 @@ In this path, you should specify POST method and send the body in Json format wi
 3)Accidents inside radius
 
 ```shell script
-accidents/radio
+/accidents/radio
 [
    {
       "long":-82.3508587993436,
@@ -123,12 +122,58 @@ In this path, you should specify POST method and send the body in Json format wi
 ```shell script
 
 
-/analyze/{atribute}/{start}-{end}
+/accidents/analyze/{atribute}/{start}-{end}
 
 /accidents/analyze/Airport_Code/100000-300000
 Code snippet to test the endpoint
 ```
 
 In this path, you should specify POST method and send the atribute which you would like to get statistics, with the the range of elements to check, it will return statistics of the atribute.
+
+# List of Available Atributes 
+
+- Civil_Twilight
+- Zipcode
+- Crossing
+- Traffic_Calming
+- Bump
+- Junction
+- Astronomical_Twilight
+- Description
+- Visibility(mi)
+- Country
+- Source
+- Traffic_Signal
+- Street
+- Wind_Speed(mph)
+- Number
+- Amenity
+- Distance(mi)
+- Railway
+- Give_Way
+- Airport_Code
+- Stop
+- City
+- Severity
+- No_Exit
+- County
+- Turning_Loop
+- Roundabout
+- Precipitation(in)
+- Pressure(in)
+- Side
+- Wind_Direction
+- Station
+- Nautical_Twilight
+- Sunrise_Sunset
+- Wind_Chill(F)
+- TMC
+- Timezone
+- Temperature(F)
+- Weather_Condition
+- Humidity(%)
+- State
+
+
 
 
