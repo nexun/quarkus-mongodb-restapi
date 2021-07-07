@@ -1,5 +1,8 @@
 # Quarkus MongoDB Logstash RestAPI
-A simple REST API with Quarkus, Logstash and MongoDB for BBDD2 UNLP.
+REST API with Quarkus, Logstash and MongoDB.
+
+This api was developed for the final work of the subject Databases 2 of the Informatics Faculty - UNLP.
+This api receives a set of several million traffic accidents and formats them using logstash to convert the coordinates into geoJSON format, then writes it to a MongoDB database, for later analysis and consultation through polygons, radii or analyzing conditions more common in which these occur. Remember that you have a sample database along with a conf file for logstash in the sampledb folder of this repository. Logstash detects files in a directory and will take care of formatting them and send to mongo database.
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
